@@ -16,13 +16,26 @@
 </head>
 <body>
 
-    <div class="page-header">
-        <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-        <h1><a href="/">Django Boys Blog</a></h1>
-    </div>
+        <div class="page-header">
+            <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+            <h1><a href="/">Django Boys Blog</a></h1>
+            {% if user.is_authenticated %}
+                <p><h3 align="center" class="text-danger">Hi {{ user.username }}!</h3></p>
+                <a href="{% url 'logout' %}" class="top-menu"><span>Logout</span></a>
+            {% else %}
+                <p><h4>You are not logged in</h4></p>
+                <a href="{% url 'login' %}" class="top-menu"><span>Login</span></a>
+            {% endif %}
 
-    {% block content %}
-    {% endblock %}
+        </div>
+        <div class="content container">
+            <div class="row">
+                <div class="col-md-8">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
 
 </body>
 </html>
